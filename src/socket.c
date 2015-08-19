@@ -8,27 +8,27 @@
 #include <unistd.h>
 
 int socket_send(int socket, char* buf, size_t buf_len) {
-	int res = send(socket, buf, buf_len, 0);
-	if (res < 0) {
-		fprintf(stderr, "Send failed.\n");
-	}
-	return res;
+  int res = send(socket, buf, buf_len, 0);
+  if (res < 0) {
+    fprintf(stderr, "Send failed.\n");
+  }
+  return res;
 }
 
 int socket_recv(int socket, char* buf, size_t buf_len) {
-	memset(buf, 0, buf_len);
+  memset(buf, 0, buf_len);
   int res = recv(socket, buf, buf_len, 0);
-	if (res == 0) {
-		fprintf(stderr, "Connection closed.\n");
-	}
-	if (res < 0) {
-		fprintf(stderr, "Recieve failed.\n");
-	}
-	return res;
+  if (res == 0) {
+    fprintf(stderr, "Connection closed.\n");
+  }
+  if (res < 0) {
+    fprintf(stderr, "Recieve failed.\n");
+  }
+  return res;
 }
 
 int socket_connect(char* server, char* port) {
-	struct addrinfo host, *host_list;
+  struct addrinfo host, *host_list;
 
   memset(&host, 0, sizeof(host));
   host.ai_family = AF_UNSPEC;
@@ -51,15 +51,15 @@ int socket_connect(char* server, char* port) {
 
   do {
     result = connect(connected_socket, host_list->ai_addr, host_list->ai_addrlen);
-		host_list = host_list->ai_next;
+    host_list = host_list->ai_next;
   } while (result == -1 && host_list->ai_next);
 
-	if (result == -1) {
-		close(connected_socket);
-		connected_socket = -1;
-		fprintf(stderr, "Unable to connect to server!\n");
-		return connected_socket;
-	}
+  if (result == -1) {
+    close(connected_socket);
+    connected_socket = -1;
+    fprintf(stderr, "Unable to connect to server!\n");
+    return connected_socket;
+  }
 
   return connected_socket;
 }
