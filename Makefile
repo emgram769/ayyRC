@@ -7,7 +7,7 @@ CFLAGS+=-I$(INCDIR)
 SRCS=$(wildcard $(SRCDIR)/*.c)
 OBJS=$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
-CFLAGS+=-O2 -Wall -D_POSIX_C_SOURCE=200112L
+CFLAGS+=-O2 -Wall -D_POSIX_C_SOURCE=200112L -std=c99
 CFLAGS_DEBUG+=-O0 -g3 -Werror -DDEBUG -pedantic
 LDFLAGS+=-lpthread
 
